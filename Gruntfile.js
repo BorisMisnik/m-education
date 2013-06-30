@@ -4,41 +4,46 @@ module.exports = function(grunt){
 
 		watch : {
 			style : {
-				files: './assets/*.less',
+				files: './assets/**/**.less',
 				tasks : ['less']
-			},
-			js : {
-				files : ['./assets/**.js', './controller/**.js', './model.js,', 'Gruntfile.js'],
-				tasks : ['jshint'] 
 			}
+			// js : {
+			// 	files : ['./assets/**/**.js', './controllers/**.js', 
+			// 			'./models/**.js,', './**.js'],
+			// 	tasks : ['jshint']  
+			// }
 		},
 
 		less: {
-		    options: {
-		     	paths: ["./assets/style"],
-		    	yuicompress: true
-		    },
-		    src: {
-		    	expand: true,
-		    	src : ['./style/*.less'],
-		    	dest : './style/css/',
-		    	ext : '.css' 
-		    }
-		},
-
-		jshint : {
 			options: {
-				globals: {
-					jQuery : true 
-				}
+				paths: ["./assets/**/**.less"],
+				yuicompress: true
 			},
-			all : ['./assets/**.js', './controller/**.js', './model.js']
+			src: {
+				expand: true,
+				flatten : true,
+				src : ['./assets/**/**.less'],
+				dest : './assets/style/css/',
+				ext : '.css' 
+			}
 		}
+
+		// jshint : {
+		// 	options: {
+		// 		curly: true,
+		// 		eqeqeq: true,
+		// 		eqnull: true,
+		// 		browser: true
+		// 	},
+		// 	all : ['./assets/**/**.js', './controllers/**.js', './models/**.js', './**.js']
+		// }
 
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-less');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
+
 	grunt.registerTask('default', ['watch', 'less', 'jshint']);
-}
+
+};

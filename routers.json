@@ -1,0 +1,8 @@
+[
+	{
+		"type" : "get",
+		"url"  : "/",
+		"path" : "./controllers/main",
+		"func" : "main"
+	}
+]
