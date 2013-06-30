@@ -31,9 +31,9 @@ for( var i = 0; i < routes.length; i++ ){
 }
 
 // connect to db and start server
-dataBase.dbConnect(function(){
+// dataBase.dbConnect(function(){
     var port = process.env.PORT || 5000;
     app.listen(port, function() {
         console.log("Listening on " + port);
-    });  
+    // });  
 });

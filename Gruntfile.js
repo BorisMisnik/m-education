@@ -6,12 +6,12 @@ module.exports = function(grunt){
 			style : {
 				files: './assets/**/**.less',
 				tasks : ['less']
+			},
+			js : {
+				files : ['./assets/**/**.js', './controllers/**.js', 
+						'./models/**.js,', './**.js'],
+				tasks : ['jshint']  
 			}
-			// js : {
-			// 	files : ['./assets/**/**.js', './controllers/**.js', 
-			// 			'./models/**.js,', './**.js'],
-			// 	tasks : ['jshint']  
-			// }
 		},
 
 		less: {
@@ -26,17 +26,16 @@ module.exports = function(grunt){
 				dest : './assets/style/css/',
 				ext : '.css' 
 			}
+		},
+		jshint : {
+			options: {
+				curly: true,
+				eqeqeq: true,
+				eqnull: true,
+				browser: true
+			},
+			all : ['./assets/**/**.js', './controllers/**.js', './models/**.js', './**.js']
 		}
-
-		// jshint : {
-		// 	options: {
-		// 		curly: true,
-		// 		eqeqeq: true,
-		// 		eqnull: true,
-		// 		browser: true
-		// 	},
-		// 	all : ['./assets/**/**.js', './controllers/**.js', './models/**.js', './**.js']
-		// }
 
 	});
 
