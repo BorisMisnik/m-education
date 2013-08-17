@@ -27,8 +27,15 @@ app.configure(function(){
 // routes
 for( var i = 0; i < routes.length; i++ ){
     var controller = require(routes[i].path);
-    app[routes[i].type](routes[i].url, controller[routes[i].func]);
-}
+    if ( controller ){
+        if( routes[i].callback.length > 1 ){
+            app[routes[i].type](routes[i].url, controller[routes[i].callback[0]], controller[routes[i].callback[1]]);
+        }
+        else{
+            app[routes[i].type](routes[i].url, controller[routes[i].callback[0]]);
+        }
+    }
+};
 
 // connect to db and start server
 dataBase.dbConnect(function(){

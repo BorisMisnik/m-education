@@ -1,0 +1,139 @@
+doctype 5
+html(ng-app="admin")
+	head
+		meta(charset="utf-8")
+		title Edit
+
+		link(rel="stylesheet", href="/style/css/bootstrap.min.css")
+		link(rel="stylesheet", href="/style/css/bootstrap-wysihtml5.css")
+		link(rel="stylesheet", href="/style/css/edit.css")
+
+		script(src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js")
+		script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js")
+		script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-resource.min.js")
+
+		script(src="/js/wysihtml5-0.3.0.min.js")
+		script(src="/js/bootstrap.min.js")
+		script(src="/js/bootstrap-wysihtml5.js")
+
+		script(src="/js/app.js")
+		script(src="/js/controllers.js")
+		script(src="/js/directives.js")
+		script(src="/js/service.js")
+
+	body
+		.container
+			.row-fluid
+				.span12
+					.navbar.navbar-fixed-top.navbar-inverse
+						.navbar-inner
+							.container
+								.nav-collapse.collapse
+									ul.nav
+										li
+											a(href="#edit", data-toggle="tab") Редактировать главную
+										li
+											a(href="#add", data-toggle="tab") Добавить тест
+										li
+											a(href="#eidt-test", data-toggle="tab") Редактировать тест
+										li
+											a(href="#message", data-toggle="tab") Отзывы
+
+					.tabs
+						//- Edit main
+						div(id="edit", ng-controller="EditCtrl")
+							select(ng-model="category", ng-change="changeSelect();")
+								option(value="mobile") About Mobile Learning
+								option(value="app") About App
+							textarea(ng-model="text", id="text")
+							button(type="button", class="btn btn-large btn-success", ng-click="save();") Сохранить
+
+						//- Add new Tes
+						div(id="add", ng-controller="AddCtrl")
+							.newTest
+								//- Title
+								label(for="title") Название теста
+								input(id="title"
+									  type="text"
+									  placeholder="Название теста"
+									  name="title"
+									  class="input-xlarge") 
+								hr
+								//- Description
+								label(for="description") Описание теста
+								textarea(
+									id="description"
+									placeholder="Описание теста"
+									name="description"
+									class="input-xxlarge")
+								hr
+								.row
+									.span6.well
+										//- image
+										.image
+											//- angular directive "newimage"
+											newimage 
+											br
+											button.btn(ng-click="addImage()")
+												i.icon-file
+												| Добавить еще
+									.span6.well				
+										//- Question
+										.question
+											//- angular directive "newquestion"
+											newquestion
+											br
+											button.btn(ng-click="addQuestion()")
+												i.icon-question-sign
+												| Добавить еще
+
+							hr
+							button(ng-click="newTest()").btn.btn-success.btn-large
+								i.icon-plus
+								| Сохранить тест
+							hr
+							//- file upload info
+							div.alert.alert-info(ng-show="info")
+								button( type="button" 
+										class="close" 
+										ng-click="closeAlert();") &times;
+								h4 Сохранение
+
+							//- file upload success
+							div.alert.alert-success(ng-show="success")
+								button( type="button" 
+										class="close" 
+										ng-click="closeAlert();") &times;
+								h4 Добавленно
+
+							//- file upload error
+							div.alert.alert-error(ng-show="error")
+								button( type="button" 
+										class="close" 
+										ng-click="closeAlert();")&times;
+								h4 Ошибка
+
+						//- eidt-test
+						div(id="eidt-test", ng-controller="EditTest")
+							button.btn(ng-click="getTests();") Обновнить
+							table.table.table-striped
+								tr
+									th Название
+									th Описание
+									th Дата
+									th
+									th
+
+								tr(ng-repeat="test in reverseTest(tests)")
+									td {{test.title}}
+									td {{test.description}}
+									td {{test.time}}
+									td(style="text-align:center;")
+										button.btn.btn-warning(ng-click="edit($index, test.id)") Изменить
+									td(style="text-align:center;")
+										button.btn.btn-danger(ng-click="remove($index, test.id)") Удалить
+
+
+						//- Massage
+						div(id="message")
+							| message

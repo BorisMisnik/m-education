@@ -1,19 +1,16 @@
 module.exports = function(grunt){
-
 	grunt.initConfig({
-
 		watch : {
 			style : {
 				files: './assets/**/**.less',
 				tasks : ['less']
-			},
+			}
 			js : {
 				files : ['./assets/**/**.js', './controllers/**.js', 
 						'./models/**.js,', './**.js'],
 				tasks : ['jshint']  
 			}
 		},
-
 		less: {
 			options: {
 				paths: ["./assets/**/**.less"],
@@ -28,13 +25,7 @@ module.exports = function(grunt){
 			}
 		},
 		jshint : {
-			options: {
-				curly: true,
-				eqeqeq: true,
-				eqnull: true,
-				browser: true
-			},
-			all : ['./assets/**/**.js', './controllers/**.js', './models/**.js', './**.js']
+			all : ['./server.js', './models/*.js', './controls/*.js']
 		}
 
 	});

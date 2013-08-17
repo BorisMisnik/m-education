@@ -2,60 +2,50 @@ doctype 5
 html
     head
         meta(charset="utf-8")
-        //- meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Mobile Learning
+
         link(rel="stylesheet", href="/style/css/bootstrap.min.css")
         link(rel="stylesheet", href="/style/css/index.css")
-        script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js")
+
+        script(src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js")
         script(src="/js/bootstrap.min.js")
-        script(src="/js/jquery.ba-throttle-debounce.min.js")
         script(src="/js/index.js")
-    body
-        .navbar.navbar-fixed-top
+            
+    body(data-spy="scroll", data-target=".nav-collapse")
+        .navbar.navbar-fixed-top.navbar-inverse
             .navbar-inner
                 .container
                     a.brand Mobile Learning
                     .nav-collapse.collapse
                         ul.nav
                             li 
-                                a(href="/#/about", class="about") О проекте
+                                a(href="#about") О проекте
                             li
-                                a(href="/#/about-app", class="about-app") Приложение
+                                a(href="#about-app") Приложение
                             li
-                                a(href="/#/themes", class="themes") Список доступных тем
+                                a(href="#themes") Список доступных тем
                             li
-                                a(href="/#/download", class="download") Загрузка
+                                a(href="#download") Загрузка
                             li
-                                a(href="/#/contacts", class="contacts") Контакты
-        .container
+                                a(href="#contacts") Контакты
+        .container#content
             .row
                 .span12
                     //- Mobile Learning
                     section(id="about")
-                        header(id="about")
+                        header
                             .page-header
                                 h1 Mobile Learning
                             .row
                                 .span9
-                                    p Описанние
-                                    p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, ab, quia velit tempora 
-                                      | amet quam totam libero magni 
-                                      | nemo dolorem at expedita rem sint laboriosam iusto quo repellendus voluptatem. Explicabo.
-                                      | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, ab, quia velit tempora 
-                                      | amet quam totam libero magni 
-                                      | nemo dolorem at expedita rem sint laboriosam iusto quo repellendus voluptatem. Explicabo.
-                        //- About app
+                                    !{mobile}
+                    //- About app
                     section(id="about-app")
                         .page-header
                             h2 Название нашего приложения
                         .row
                             .span9
-                                p Описанние
-                                p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, ab, quia velit tempora 
-                                  | amet quam totam libero magni 
-                                  | nemo dolorem at expedita rem sint laboriosam iusto quo repellendus voluptatem. Explicabo.
-                                  | amet quam totam libero magni 
-                                  | nemo dolorem at expedita rem sint laboriosam iusto quo repellendus voluptatem. Explicabo.
+                                !{app}
                     //- Themes 
                     section(id="themes")
                         .page-header
@@ -63,18 +53,17 @@ html
                         .row
                             .span5
                                 .well
-                                    ul.nav.nav-list
-                                        li.active
-                                            a(href="#") Первая
-                                        li 
-                                            a(href="#") Вторая
-                            .span7
-                                p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, ab, quia velit tempora 
-                                  | amet quam totam libero magni 
-                                  | nemo dolorem at expedita rem sint laboriosam iusto quo repellendus voluptatem. Explicabo.
-                                  | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, ab, quia velit tempora 
-                                  | amet quam totam libero magni 
-                                  | nemo dolorem at expedita rem sint laboriosam iusto quo repellendus voluptatem. Explicabo.
+                                    ul.nav.nav-list#list
+                                        for theme, i in themes
+                                            if( i === 0 )
+                                                li.active
+                                                    a(href="#", data-target="#{i}")= theme.title
+                                            else
+                                                li
+                                                    a(href="#", data-target="#{i}")= theme.title
+                            .span7#all-themes
+                                for theme, i in themes        
+                                    p(name="#{i}")= theme.description
                     //-  Donwload
                     section(id="download")
                         .page-header
@@ -116,9 +105,8 @@ html
                     hr
                     footer(id="footer")
                         p.pull-right 
-                            a(href="/#/") Вернутся в начало
+                            a(href="#about") Вернутся в начало
                         p &copy; 2013 - 2014
-
 
 
                     

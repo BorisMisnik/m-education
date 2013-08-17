@@ -1,66 +1,56 @@
 $(document).ready(function(){
+	var p = $('#all-themes p');
+	var li = $('#list li');
 
-	var links = $('ul.nav a');
-	var section = $('section');
-	var timer = null;
+	p.hide();
+	p.first().show();
+	li.first().addClass('active');
 
-	function scrollById(id){
-		var section = $('#' + id);
-		var navBar = $('.navbar');
-		var y = section.offset().top - navBar.outerHeight(true);
-		navbar(id);
-		$('html, body').scrollTop(y);
-	}
+	li.on('click', function(e){
+		e.preventDefault();
+		$this = $(this);
+		$target = $this.find('a').data('target');
 
-	function navbar(className){
-		$('.active').removeClass('active');
-		$('.' + className).parent().addClass('active');
-	}
+		p.hide();
+		$('p[name='+$target+']').show();
 
-	function scrollWindow(){
+		$('#list .active').removeClass('active');
+		$this.addClass('active');
+	});
 
-		if( timer !== null ){
-			clearTimeout(timer);
-		}
-		timer = setTimeout(stopScroll, 500);
+	// authorizated
 
-		function stopScroll(){
+	$('label.checkbox').on('click', function(){
+		var input = $(this).find('input');
+		if( input.is( ':checked' ) )
+			input.attr('checked', true );
+		else
+			input.attr('checked', false );
+	});
 
-			if( window.history && 'pushState' in history ){
-				var link = $('.active a').attr('href');
-				history.pushState(null, null, link);
-			}
+	$('.text-error').hide();
 
-		}
+	$('#login').on('click', function(e){
+		e.preventDefault();
 
-		section.each(function(){
-			$this = $(this).get(0);
-			var y1 = $this.getBoundingClientRect().top;
-			var y2 = $(document).scrollTop();
+		$('.text-error').hide();
+		
+		var form = {
+			email : $('#inputEmail').val(),
+			pass  : $('#inputPassword').val(),
+			remember : $('#remember').prop('checked')
+		};
+		$.post('/admin', form)
+			.done(function(res){
+				if( res === 'error' )
+					$('.text-error[name="not-user"]').show();
+				else if( res === 'OK' )
+					window.location = '/admin/edit';
+			})
+			.fail(function(){
+				$('.text-error[name="fail"]').show();
+			});
+	});
 
-			if( y1 <= 70 && y2 < $this.getBoundingClientRect().height + $(this).offset().top ){
-				var className = $this.id;
-				navbar(className);
-			}
-			else if( y2 === 0 ){
-				var className = 'about';
-				navbar(className);
-			}
-		});
-	}
-
-	function linkClick(e){
-		var id = e.target.className;
-		if( id !== '' ){
-			scrollById(id);
-		}
-	}
-
-	setTimeout(function(){
-		scrollById(window.location.hash.replace('#/',''));
-	},100);
-
-	links.on('click', linkClick);
-	$(window).scroll($.throttle(100, scrollWindow))
 
 }); 

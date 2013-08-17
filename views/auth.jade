@@ -1,0 +1,44 @@
+doctype 5
+html
+	head
+		meta(charset="utf-8")
+		title Авторизация
+
+		link(rel="stylesheet", href="/style/css/bootstrap.min.css")
+		link(rel="stylesheet", href="/style/css/index.css")
+
+		script(src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js")
+		script(src="/js/index.js")
+	body
+		.container#auth
+			.row-fluid
+				.span12
+					form.form-horizontal.well
+						//- email
+						.control-group
+							label.control-label( for="inputEmail") Email
+							.controls
+								input(type="email"
+									  placeholder="E-mail"
+									  id="inputEmail"
+									  name="email"
+									  required
+									)
+
+						//- Password
+						.control-group
+							label.control-label( for="inputPassword") Password
+							.controls
+								input(type="password"
+									  placeholder="Password"
+									  id="inputPassword"
+									  name="password"
+									  required
+									)
+						//- button submit
+						.control-group
+							.controls
+								button(class="btn btn-primary", id="login") OK
+
+						.text-error(name="not-user") Не правильный логин, или пароль.
+						.text-error(name="fail") Ошибка.
