@@ -4,6 +4,14 @@ var mongoose = require('mongoose')
 	, async = require('async')
 	, rand  = require('generate-key');
 
+var TestSchema = mongoose.Schema({
+	images : Array,
+	questions : Array,
+	title : String,
+	description : String,
+	time : String
+});
+var Test = mongoose.model('AllTest', TestSchema);
 // save test to db
 exports.uploadTest = function(test, myFunc){
 	var clientTest = test.test;
@@ -18,15 +26,12 @@ exports.uploadTest = function(test, myFunc){
 	date.m = date.m < 10 ? '0' + String(date.m) : date.m;
 	var testDay = date.d + '/' + date.m + '/' + date.y;
 
-	newTest.title = clientTest.title;
-	newTest.description = clientTest.description;
 	newTest.images = [];
 	newTest.questions = [];
-	newTest.id = rand.generateKey(7);
-	newTest.time = testDay;
 
 	async.parallel([
 		function(callback){
+					console.log(clientTest.images.length)
 			async.map(clientTest.images, saveFile, function(err, result){
 				if( err ) throw err;
 
@@ -37,6 +42,7 @@ exports.uploadTest = function(test, myFunc){
 			});
 		},
 		function(callback){
+			console.log(clientTest.questions.length)
 			async.map(clientTest.questions, pushQuestion, function(err, result){
 				if( err ) throw err;
 
@@ -56,7 +62,7 @@ exports.uploadTest = function(test, myFunc){
 			if( err ) callback(err);
 
 			var newImage = {
-				path : path,
+				path : '/style/img/' + image.name,
 				description : image.description
 			}
 			newTest.images.push( newImage );
@@ -75,26 +81,29 @@ exports.uploadTest = function(test, myFunc){
 
 
 	function uploadToDb(){
-		index_model.mobile.update('app', {$push : { app : newTest }}, function(err, data){
-			if( err ) throw err;
-			myFunc(data);
-		})
+		// test Schema
+		var m = new Test();
+		m.images  = newTest.images;
+		m.questions = newTest.questions;
+		m.title = clientTest.title;
+		m.description = clientTest.description;
+		m.time = testDay;
+		m.save(myFunc(true));
 	}
 
 } 
 
 // get all tests
 exports.getTests = function(myFunc){
-	index_model.mobile.find('main.app', function(err, data){
+	Test.find(function(err, data){
 		if( err ) throw err;
-
-		var result = data[0].app;
-		myFunc(result);
+		myFunc(data);
 	});
 }
 
 // remove test
 exports.deleteTest = function(id){
-	console.log( 'data ', id );
-	index_model.mobile.removeTest(id);
+	Test.findByIdAndRemove(id, function(err, result){
+		if(err) throw err;
+	});
 }

@@ -81,7 +81,7 @@ html
                             h2 Контакты 
                         .row
                             .span12
-                                form.well.form-horizontal
+                                form.well.form-horizontal(method="post", action="/saveReview")
                                     .control-group
                                         label(for="email", class="control-label") Email
                                         .controls
@@ -97,10 +97,11 @@ html
                                     .control-group
                                         label(class="control-label", for="message") Сообщение
                                         .controls 
-                                            textarea(placeholder="Ваше сообщение", id="message", class="input-xlarge", required)
+                                            textarea(placeholder="Ваше сообщение", id="message", class="input-xlarge", 
+                                                required, name="message")
                                     .control-group
                                         .controls
-                                            button(type="submit", class="btn btn-success") Отправить
+                                            button(type="submit", class="btn btn-success", id="submitForm") Отправить
                     //- footer
                     hr
                     footer(id="footer")

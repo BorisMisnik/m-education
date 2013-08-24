@@ -24,4 +24,16 @@ angular.module('appService', ['ngResource'])
 				}
 			}
 		});
+	})
+	.factory('Reviews', function($resource){
+		return $resource('/admin/edit/reviews/:method', { method : '@method'}, {
+			get : {
+				method : 'GET',
+				isArray : true
+			},
+			remove : {
+				method : 'DELETE',
+				params :  { id : '@id'}
+			}
+		})
 	});

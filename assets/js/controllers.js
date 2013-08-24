@@ -46,7 +46,9 @@ app.controller('AddCtrl', function($scope, $http, $compile, Test){
 		if( newValue ===  $file.length && 
 			$scope.indexQuestion === $question.length )
 		{
+			console.log('upload')
 			uploadTest();
+
 		}
 	});
 
@@ -54,8 +56,11 @@ app.controller('AddCtrl', function($scope, $http, $compile, Test){
 	function uploadTest(){
 		Test.save({test : test, method : 'saveTest'}, 
 			function Response(data, status, headers){
-				if( data[0] === 'O' && data[1] === 'K' )
+				if( data[0] === 'O' && data[1] === 'K' ){
 					alert.success();
+					window.location = window.location.href;
+				}
+					
 				else
 					alert.error();
 			});
@@ -118,13 +123,9 @@ app.controller('AddCtrl', function($scope, $http, $compile, Test){
 	// submit form
 	$scope.newTest = function(){
 
-		if( !$file.val() || !$('#title').val().length ||
-			!$('#description').val() )
-		{
-			// show error alert
-			alert.error();
-			return;
-		}
+		// jquery selector 
+		$file = $('[name="file"]');
+		$question = $('[name="question"]');
 
 		// reset amount images and question
 		$scope.indexImg = 0;
@@ -137,13 +138,13 @@ app.controller('AddCtrl', function($scope, $http, $compile, Test){
 		test.description = angular.element('#description').val();
 		test.images = [];
 		test.questions = [];
-
 		// images
 		$file.each(function(i){
 			$this = $(this);
 
 			if( !$this.val() ){
-				alert.error();
+				$scope.indexImg++;
+				setTimeout(function(){$scope.$apply();},0);
 				return;
 			}
 
@@ -168,7 +169,8 @@ app.controller('AddCtrl', function($scope, $http, $compile, Test){
 			var answer = $this.parent().find('input[name="answer"]').val();
 
 			if( que.length === 0 || answer.length === 0 ){
-				alert.error()
+				$scope.indexQuestion++;
+				setTimeout(function(){$scope.$apply();},0);
 				return;
 			}
 			saveQuestion(que, answer);
@@ -195,9 +197,6 @@ app.controller('AddCtrl', function($scope, $http, $compile, Test){
 			test.questions.push(q);
 			$scope.indexQuestion++;
 		}
-
-
-
 	};
 });
 
@@ -221,9 +220,28 @@ app.controller('EditTest', function($scope, Test){
 		Test.remove({
 			method : 'removeTest',
 			id : id
-		}, function(res){
-			console.log( res );
 		});
+		$scope.getTests();
 	}	
 
 });
+
+// ReviewsCtrl 
+app.controller('ReviewsCtrl', function($scope, Reviews){
+	// get all reviews
+	function get(){
+		Reviews.get({method : 'getAllReviews'}, function(data){
+			$scope.items = data;
+		});
+	}
+	get();
+	// remove reviews
+	$scope.remove = function(index, id){
+		Reviews.remove({
+			method : 'removeReview',
+			id : id
+		});
+		// get all reviews
+		get();
+	};
+})

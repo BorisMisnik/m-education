@@ -57,7 +57,8 @@ html(ng-app="admin")
 									  type="text"
 									  placeholder="Название теста"
 									  name="title"
-									  class="input-xlarge") 
+									  class="input-xlarge"
+									  required) 
 								hr
 								//- Description
 								label(for="description") Описание теста
@@ -65,7 +66,8 @@ html(ng-app="admin")
 									id="description"
 									placeholder="Описание теста"
 									name="description"
-									class="input-xxlarge")
+									class="input-xxlarge"
+									required)
 								hr
 								.row
 									.span6.well
@@ -122,18 +124,28 @@ html(ng-app="admin")
 									th Описание
 									th Дата
 									th
-									th
 
 								tr(ng-repeat="test in reverseTest(tests)")
 									td {{test.title}}
 									td {{test.description}}
 									td {{test.time}}
 									td(style="text-align:center;")
-										button.btn.btn-warning(ng-click="edit($index, test.id)") Изменить
-									td(style="text-align:center;")
-										button.btn.btn-danger(ng-click="remove($index, test.id)") Удалить
+										button.btn.btn-danger(ng-click="remove($index, test._id)") Удалить
 
 
 						//- Massage
-						div(id="message")
-							| message
+						div(id="message", ng-controller="ReviewsCtrl")
+							table.table.table-striped
+								tr
+									th Почта
+									th Имя
+									th Сообщение
+									th Даты
+									th
+								tr(ng-repeat="item in items")
+									td {{item.email}}
+									td {{item.name}}
+									td {{item.message}}
+									td {{item.date}}
+									td
+										button.btn.btn-danger(ng-click="remove($index, item._id)") Удалить

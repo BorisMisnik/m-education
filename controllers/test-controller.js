@@ -2,12 +2,10 @@ var model = require('../models/test-model');
 
 exports.saveTest = function(req, res){
 	model.uploadTest(req.body, function(result){
-		if( result ){
+		if( result )
 			res.send('OK')
-		}
-		else{
+		else
 			res.send('error');
-		}
 	});
 }
 

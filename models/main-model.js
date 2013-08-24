@@ -1,16 +1,18 @@
 var mongoose = require('mongoose');
 var index_model = require('../models/init');
+var test_model = require('../models/test-model');
 
 module.exports.getContent = function(callback){
-
-	index_model.mobile.findOne('main', function(err, data){
+	index_model.mobile.findOne(function(err, data){
 		if( err ) return console.log( err );
-		var respond = {
-			mobile : data.main.aboutMobile,
-			app : data.main.aboutApp,
-			themes : data.app
+		respond = {
+			mobile : data.aboutMobile,
+			app : data.aboutApp
 		}
-		callback(respond);
-
-	})
+		// get all test
+		test_model.getTests(function(data){
+			respond.themes =  data;
+			callback(respond)
+		})
+	});
 }

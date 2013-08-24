@@ -52,5 +52,23 @@
 		"url"  : "/admin/edit/removeTest",
 		"path" : "./controllers/test-controller",
 		"callback" : ["removeTest"]
+	},
+	{
+		"type" : "get",
+		"url" : "/admin/edit/reviews/getAllReviews",
+		"path" : "./controllers/reviews-controller",
+		"callback" : ["reviews"]
+	},
+	{
+		"type" : "delete",
+		"url" : "/admin/edit/reviews/removeReview",
+		"path" : "./controllers/reviews-controller",
+		"callback" : ["removeReview"]
+	},
+	{
+		"type" : "post",
+		"url" : "/saveReview",
+		"path" : "./controllers/reviews-controller",
+		"callback" : ["save"]
 	}
 ]

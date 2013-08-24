@@ -2,27 +2,26 @@ var mongoose = require('mongoose');
 var index_model = require('../models/init');
 
 module.exports.getText = function(str,callback){
-	index_model.mobile.findOne('main', function(err, data){
+	index_model.mobile.find(function(err, data){
 		if( err ) return console.log( err );
 
 		if( str === 'mobile' )
-			callback( data.main.aboutMobile );
+			callback( data.aboutMobile );
 		else
-			callback( data.main.aboutApp );
+			callback( data.aboutApp );
 	});	
 };
 
 
 module.exports.saveText = function(str, data, callback){
-	index_model.mobile.findOne('main', function(err, rez){
+	index_model.mobile.findOne(function(err, res){
 		if( err ) console.log('find main object err',  err );
-
 		if( str === 'mobile' )
-			rez.main.aboutMobile = data;
+			res.aboutMobile = data;
 		else
-			rez.main.aboutApp = data;
+			res.aboutApp = data;
 
-		rez.save(function(err){
+		res.save(function(err){
 			if( err ) return console.log( 'save new value err', err );
 			callback('OK');
 
