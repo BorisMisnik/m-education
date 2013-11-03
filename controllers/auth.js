@@ -1,17 +1,12 @@
-module.exports.auth = function(req, res){
-	res.render('auth');
-};
-
-module.exports.login = function(req,res){
+exports.auth = function(req, res){
 	var email = req.body.email;
-	var pass  = req.body.pass;
-	
-	if( email === 'mobile@mobile.com' && pass === 'mobile1mobile' ){
+	var pass  = req.body.password;
+	if( email === '1' && pass === '1' ){
 		req.session.auth = true;
-		res.send('OK');		
 	}
-	else{
-		res.send('error');
-	}
-		
+	
+	if( !req.session.auth )
+		res.render('auth');
+	else
+		res.render('edit');	
 };

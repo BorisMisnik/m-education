@@ -13,12 +13,12 @@ html
 		.container#auth
 			.row-fluid
 				.span12
-					form.form-horizontal.well
+					form.form-horizontal.well(action="/admin/", method="post")
 						//- email
 						.control-group
 							label.control-label( for="inputEmail") Email
 							.controls
-								input(type="email"
+								input(type="text"
 									  placeholder="E-mail"
 									  id="inputEmail"
 									  name="email"

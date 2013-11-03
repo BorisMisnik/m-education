@@ -38,14 +38,12 @@ html
                                 h1 Mobile Learning
                             .row
                                 .span9
-                                    !{mobile}
                     //- About app
                     section(id="about-app")
                         .page-header
                             h2 Название нашего приложения
                         .row
                             .span9
-                                !{app}
                     //- Themes 
                     section(id="themes")
                         .page-header
@@ -54,16 +52,7 @@ html
                             .span5
                                 .well
                                     ul.nav.nav-list#list
-                                        for theme, i in themes
-                                            if( i === 0 )
-                                                li.active
-                                                    a(href="#", data-target="#{i}")= theme.title
-                                            else
-                                                li
-                                                    a(href="#", data-target="#{i}")= theme.title
                             .span7#all-themes
-                                for theme, i in themes        
-                                    p(name="#{i}")= theme.description
                     //-  Donwload
                     section(id="download")
                         .page-header

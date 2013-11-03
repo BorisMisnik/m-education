@@ -6,69 +6,9 @@
 		"callback" : ["main"]
 	},
 	{
-		"type" : "get",
+		"type" : "post",
 		"url"  : "/admin",
 		"path" : "./controllers/auth",
 		"callback" : ["auth"]
-	},
-	{
-		"type" : "get",
-		"url"  : "/admin/edit",
-		"path" : "./controllers/edit",
-		"callback" : ["authorized", "edit"]
-	},
-	{
-		"type" : "post",
-		"url"  : "/admin/edit/content",
-		"path" : "./controllers/edit",
-		"callback" : ["saveContent"]
-	},
-	{
-		"type" : "get",
-		"url"  : "/admin/edit/content",
-		"path" : "./controllers/edit",
-		"callback" : ["getContent"]
-	},
-	{
-		"type" : "post",
-		"url"  : "/admin",
-		"path" : "./controllers/auth",
-		"callback" : ["login"]
-	},
-	{
-		"type" : "post",
-		"url"  : "/admin/edit/saveTest",
-		"path" : "./controllers/test-controller",
-		"callback" : ["saveTest"]
-	},
-	{
-		"type" : "get",
-		"url"  : "/admin/edit/getAllTest",
-		"path" : "./controllers/test-controller",
-		"callback" : ["getAllTest"]
-	},
-	{
-		"type" : "delete",
-		"url"  : "/admin/edit/removeTest",
-		"path" : "./controllers/test-controller",
-		"callback" : ["removeTest"]
-	},
-	{
-		"type" : "get",
-		"url" : "/admin/edit/reviews/getAllReviews",
-		"path" : "./controllers/reviews-controller",
-		"callback" : ["reviews"]
-	},
-	{
-		"type" : "delete",
-		"url" : "/admin/edit/reviews/removeReview",
-		"path" : "./controllers/reviews-controller",
-		"callback" : ["removeReview"]
-	},
-	{
-		"type" : "post",
-		"url" : "/saveReview",
-		"path" : "./controllers/reviews-controller",
-		"callback" : ["save"]
 	}
 ]

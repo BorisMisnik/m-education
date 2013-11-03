@@ -18,39 +18,4 @@ $(document).ready(function(){
 		$this.addClass('active');
 	});
 
-	// authorizated
-
-	$('label.checkbox').on('click', function(){
-		var input = $(this).find('input');
-		if( input.is( ':checked' ) )
-			input.attr('checked', true );
-		else
-			input.attr('checked', false );
-	});
-
-	$('.text-error').hide();
-
-	$('#login').on('click', function(e){
-		e.preventDefault();
-
-		$('.text-error').hide();
-		
-		var form = {
-			email : $('#inputEmail').val(),
-			pass  : $('#inputPassword').val(),
-			remember : $('#remember').prop('checked')
-		};
-		$.post('/admin', form)
-			.done(function(res){
-				if( res === 'error' )
-					$('.text-error[name="not-user"]').show();
-				else if( res === 'OK' )
-					window.location = '/admin/edit';
-			})
-			.fail(function(){
-				$('.text-error[name="fail"]').show();
-			});
-	});
-
-
 }); 

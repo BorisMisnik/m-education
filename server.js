@@ -1,6 +1,6 @@
 var express  = require("express"),
-    dataBase = require('./models/init'),
-    routes   = require('./routers.json');
+    auth = require('./controllers/auth'),
+    main = require('./controllers/main'); 
 
 var app = express();
 
@@ -25,22 +25,11 @@ app.configure(function(){
 });
 
 // routes
-for( var i = 0; i < routes.length; i++ ){
-    var controller = require(routes[i].path);
-    if ( controller ){
-        if( routes[i].callback.length > 1 ){
-            app[routes[i].type](routes[i].url, controller[routes[i].callback[0]], controller[routes[i].callback[1]]);
-        }
-        else{
-            app[routes[i].type](routes[i].url, controller[routes[i].callback[0]]);
-        }
-    }
-};
+app.get('/', main.main);
+app.get('/admin', auth.auth);
 
 // connect to db and start server
-dataBase.dbConnect(function(){
-    var port = process.env.PORT || 5000;
-    app.listen(port, function() {
-        console.log("Listening on " + port);
-    });  
-});
+var port = process.env.PORT || 5000;
+app.listen(port, function() {
+    console.log("Listening on " + port);
+});  

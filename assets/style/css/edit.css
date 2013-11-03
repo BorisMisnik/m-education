@@ -1,1 +1,27 @@
-textarea{width:810px;height:220px}.tabs>div{display:none;margin:80px 0 0}.tabs>div.active{display:block}.icon-plus,.icon-question-sign,.icon-file{margin-right:10px}.image,.question{display:inline-block;text-align:left}.root{text-align:left;border-bottom:1px solid #695a63}.image .btn{margin-bottom:11px}
+textarea {
+  width: 810px;
+  height: 220px;
+}
+.tabs > div {
+  margin: 80px 0 0;
+}
+.tabs > div.active {
+  display: block;
+}
+.icon-plus,
+.icon-question-sign,
+.icon-file {
+  margin-right: 10px;
+}
+.image,
+.question {
+  display: inline-block;
+  text-align: left;
+}
+.root {
+  text-align: left;
+  border-bottom: 1px solid #695A63;
+}
+.image .btn {
+  margin-bottom: 11px;
+}
