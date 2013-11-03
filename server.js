@@ -26,7 +26,8 @@ app.configure(function(){
 
 // routes
 app.get('/', main.main);
-app.post('/admin', auth.auth);
+app.get('/admin', auth.auth);
+app.post('/admin', auth.authorized);
 
 // connect to db and start server
 var port = process.env.PORT || 5000;
