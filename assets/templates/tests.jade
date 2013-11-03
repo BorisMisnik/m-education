@@ -1,0 +1,47 @@
+div(id="tests")
+	table.table.table-strip 
+		tr
+			th Заголовок
+			th Описание
+			th Вопросы
+			th Изменить
+			th Удалить
+		tr(ng-repeat="test in tests")
+			td {{test.title}}
+			td {{test.about}}
+			td
+				button.btn.btn-info(ng-click="question(test.id);") Изменить
+			td 
+				button.btn.btn-warning(ng-click="change(test);")  Изменить
+			td
+				button.btn.btn-danger(ng-click="remove(test.id);") Удалить
+
+	h2 Добавить тест
+	label Название
+	input(class="input-xlarge", ng-model="title", placeholder="Заголовок", type="text")
+
+	label Описание
+	textarea(ng-model="about", style="display:block;", placeholder="Описание")
+
+	.alert.alert-error.alert-block(ng-show="error")
+		{{textError}}
+	.alert.alert-success.alert-block(ng-show="success") Сохранено
+
+	button.btn.btn-primary(style="margin-bottom:40px;", ng-click="save();") Сохранить
+
+
+	//- Modal
+	.modal.hide.fade(aria-hidden="true", aria-labelledby="myModalLabel")
+		.modal-header
+			button(type="button",  class="close", data-dismiss="modal", aria-hidden="true") &times;
+			h3 {{modal.title}}
+		.modal-body
+			label Название
+			input(class="input-xlarge", ng-model="modal.title", placeholder="Заголовок", type="text")
+
+			label Описание
+			textarea(ng-model="modal.about", style="display:block;", placeholder="Описание", style="width:500px;")
+				{{modal.about}}
+		.modal-footer
+			button(class="btn",data-dismiss="modal", aria-hidden="true") Close
+			button(class="btn btn-primary", ng-click="saveChange(modal.id);") Save change

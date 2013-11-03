@@ -1,0 +1,52 @@
+div(id="tests")
+	table.table.table-strip 
+		tr
+			th Вопрос
+			th Ответ
+			th Изображение
+			th Изменить
+			th Удалить
+		tr(ng-repeat="question in questions")
+			td {{question.question}}
+			td {{question.answer}}
+			td
+				button.btn.btn-info(ng-click="watch(question.image)", ng-show="question.image") Просмотреть
+			td 
+				button.btn.btn-warning(ng-click="change(question);")  Изменить
+			td
+				button.btn.btn-danger(ng-click="remove(question.id);") Удалить
+
+	h2 Добавить тест
+	label Вопрос
+	input(class="input-xlarge", ng-model="question", placeholder="Вопрос", type="text")
+
+	label Ответ
+	input(type="text", class="input-xxlarge", ng-model="answer", placeholder="Ответ")  
+
+	label Изображение
+	input(type="file", id="file")
+	br
+
+	.alert.alert-error.alert-block(ng-show="error")
+		{{textError}}
+	.alert.alert-success.alert-block(ng-show="success") Сохранено
+
+	button.btn.btn-primary(style="margin-bottom:40px;", ng-click="save();") Сохранить
+
+	//- Modal
+	.modal.hide.fade(aria-hidden="true", aria-labelledby="myModalLabel")
+		.modal-body
+			div.img(ng-show="img", style="text-align:center;")
+				img(ng-src="{{modal.img}}", alt="")
+			div.content(ng-show="!img")
+				label Вопрос
+				input(class="input-xlarge", ng-model="modal.question", placeholder="Вопрос", type="text")
+
+				label Ответ
+				input(type="text", class="input-xxlarge", ng-model="modal.answer", placeholder="Ответ")
+
+				label Изображение
+				input(type="file", id="fileModal")
+		.modal-footer
+			button(class="btn",data-dismiss="modal", aria-hidden="true") Close
+			button(class="btn btn-primary", ng-click="update(modal.id);", ng-show="!img") Save change

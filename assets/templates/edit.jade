@@ -1,0 +1,9 @@
+//- Edit main
+div(id="edit")
+	.alert.alert-error.alert-block(ng-show="error")
+		{{textError}}
+	select(ng-model="category")   
+		option(value="mobile") About Mobile Learning
+		option(value="app") About App
+	textarea(ng-model="text", id="text")
+	button(type="button", class="btn btn-large btn-success", ng-click="save();") Сохранить
