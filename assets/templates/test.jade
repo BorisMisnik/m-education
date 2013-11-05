@@ -2,13 +2,15 @@ div(id="tests")
 	table.table.table-strip 
 		tr
 			th Вопрос
-			th Ответ
+			th Ответы
+			th Правильный ответ
 			th Изображение
 			th Изменить
 			th Удалить
 		tr(ng-repeat="question in questions")
 			td {{question.question}}
 			td {{question.answer}}
+			td {{question.confirmAnswer}}
 			td
 				button.btn.btn-info(ng-click="watch(question.image)", ng-show="question.image") Просмотреть
 			td 
@@ -22,6 +24,9 @@ div(id="tests")
 
 	label Ответ
 	input(type="text", class="input-xxlarge", ng-model="answer", placeholder="Ответ")  
+
+	label Привильный ответ
+	input(type="text", class="input-xxlarge", ng-model="confirmAnswer", placeholder="Привильный ответ")
 
 	label Изображение
 	input(type="file", id="file")
@@ -44,6 +49,9 @@ div(id="tests")
 
 				label Ответ
 				input(type="text", class="input-xxlarge", ng-model="modal.answer", placeholder="Ответ")
+
+				label Привильный ответ
+				input(type="text", class="input-xxlarge", ng-model="modal.confirmAnswer", placeholder="Привильный ответ")
 
 				label Изображение
 				input(type="file", id="fileModal")

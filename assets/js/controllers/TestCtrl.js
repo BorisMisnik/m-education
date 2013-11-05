@@ -19,6 +19,7 @@ function TestCtrl($scope, $routeParams, $timeout, Parse, Modal){
 					var data = {
 						question : $scope.question,
 						answer : $scope.answer,
+						confirmAnswer : $scope.confirmAnswer,
 						testId : testId,
 						file : result
 					};
@@ -27,6 +28,7 @@ function TestCtrl($scope, $routeParams, $timeout, Parse, Modal){
 						$scope.error = false;
 						$scope.success = true;
 						$scope.$apply();
+						$scope.getItems();
 					});
 				}
 			});
@@ -35,6 +37,7 @@ function TestCtrl($scope, $routeParams, $timeout, Parse, Modal){
 			var data = {
 				question : $scope.question,
 				answer : $scope.answer,
+				confirmAnswer : $scope.confirmAnswer,
 				testId : testId
 			};
 
@@ -42,6 +45,7 @@ function TestCtrl($scope, $routeParams, $timeout, Parse, Modal){
 				$scope.error = false;
 				$scope.success = true;
 				$scope.$apply();
+				$scope.getItems();
 			});
 
 		}
@@ -60,6 +64,7 @@ function TestCtrl($scope, $routeParams, $timeout, Parse, Modal){
 				var obj = {
 					question : result[i].get('question'),
 					answer : result[i].get('answer'),
+					confirmAnswer : result[i].get('confirmAnswer'),
 					testId : result[i].get('testId'),
 					id : result[i].id
 				};
@@ -90,6 +95,7 @@ function TestCtrl($scope, $routeParams, $timeout, Parse, Modal){
 			question : question.question,
 			answer : question.answer,
 			testId : question.testId,
+			confirmAnswer : question.confirmAnswer,
 			id : question.id
 		};
 
