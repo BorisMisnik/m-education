@@ -28,6 +28,7 @@ app.configure(function(){
 app.get('/', main.main);
 app.get('/admin', auth.auth);
 app.post('/admin', auth.authorized);
+app.post('/saveReview', main.save);
 
 // connect to db and start server
 var port = process.env.PORT || 5000;
