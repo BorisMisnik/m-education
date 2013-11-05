@@ -1,0 +1,25 @@
+div(id="message")
+	table.table.table-strip
+		tr
+			th Имя
+			th Почта
+			th Просмореть
+			th Удалить
+		tr(ng-repeat="feedback in feedbacks")
+			td {{feedback.name}}
+			td {{feedback.email}}  
+			td 
+				button.btn.btn-primary(ng-click="watch(feedback);") Просмореть
+			td	
+				button.btn.btn-danger(ng-click="remove(feedback.id);") Удалить
+
+	//- Modal
+	.modal.hide.fade(aria-hidden="true", aria-labelledby="myModalLabel")
+		.modal-header
+			button(type="button",  class="close", data-dismiss="modal", aria-hidden="true") &times;
+			h3 {{modal.email}}
+		.modal-body
+			div
+				{{modal.message}}
+		.modal-footer
+			button(class="btn",data-dismiss="modal", aria-hidden="true") Close
