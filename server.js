@@ -31,7 +31,7 @@ app.post('/admin', auth.authorized);
 app.post('/saveReview', main.save);
 
 // connect to db and start server
-var port = process.env.PORT || 5000;
+var port = process.env.PORT || 5000; 
 app.listen(port, function() {
     console.log("Listening on " + port);
 });  
